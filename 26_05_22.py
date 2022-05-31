@@ -330,3 +330,122 @@ print("Menor número:", menor)
 print("Soma números:", soma)
 '''
 
+
+'''
+#20
+loop = "S"
+
+while loop == "S":
+    x = int(input("Digite o numero do fatorial: "))
+    while x <= 0 or x > 16:
+        x = int(input("Digite o numero do fatorial: "))
+    y = 1
+
+    for i in range (x, 0, -1):
+        y = y * i
+    
+    print (y)
+    
+    loop = str(input("Deseja continuar? (S/N) "))
+    
+'''
+
+'''
+#21
+
+x = int(input("Digite um numero: "))
+primo = True
+
+
+for i in range (2,x):
+    if x % i == 0:
+        primo = False
+        
+if primo == True:
+    print("É Primo")
+    
+else:
+    print("Não é Primo")
+
+'''
+
+'''
+#22
+x = int(input("Digite um numero: "))
+primo = True
+divisores = []
+
+for i in range (2,x):
+    if x % i == 0:
+        primo = False
+        divisores.append(i)
+        
+if primo == True:
+    print("É Primo")
+    
+else:
+    print("Não é Primo")
+    print (divisores)
+'''
+
+'''
+#23
+
+x = int(input("Digite um numero: "))
+primos = []
+divisoes = 0
+
+for i in range (2,x):
+    primo = True
+    for j in range (2, i):
+        if primo == False:
+            break
+        divisoes += 1
+        if i % j == 0:
+            primo = False
+            
+    
+    
+    if primo == True:
+        primos.append(i)
+        
+print(primos)        
+print(divisoes)
+
+'''
+
+'''
+#24
+
+n = int(input("Digite o numero de notas: "))
+soma = 0
+
+
+for i in range (0,n):
+    soma =  soma + int(input("Digite a nota {}: ".format(i+1)))
+
+
+media = soma / n
+
+print(media)
+'''
+
+'''
+#25
+
+n = int(input("Digite o numero de pessoas: "))
+total = 0
+
+for i in range (0,n):
+    total = total + int(input("digite a idade da pessoa {}: ".format(i+1)))
+    
+    
+media = total/n
+
+if media >= 0 and media <= 25:
+    print("A turma é jovem")
+elif media > 25 and media <= 60:
+    print("A turma é adulta")
+elif media > 60:
+    print("A turma é idosa")
+'''
