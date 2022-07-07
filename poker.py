@@ -1,34 +1,34 @@
 import random
-class carta:
-    def __init__(self, numero, naipe):
-        self.numero = numero
-        self.naipe = naipe
-        
-    def get_numero(self):
-        return self.numero
-    
-    def get_naipe(self):
-        return self.naipe
-    
-    def imprimemao(self):
-        print (self.numero, self.naipe)
 
+class jogador:
+    def __init__(self, nome, card1, card2):
+        self.nome = nome
+        self.card1 = card1
+        self.card2 = card2
+            
+    def getnome(self):
+        return self.nome
+    
+    def getcard1(self):
+        return self.card1
+    
+    def getcard2(self):
+        return self.card2
 #Declaração de Variaveis
 
 numerocard = 0
-sel = 1
 listanaipe = ["Ouro", "Espadas", "Copas", "Paus"]
 deck = []
 escolha = True
 jogadores = []
 mesa = []
-
-
+fases = ["Preflop", "Flop", "Turn", "River"]
+jogadoresativos = []
 #Criação de Deck
 
 for naipe in listanaipe:
     for numero in range(1, 14):
-        card = carta(numero,naipe)
+        card = f"{numero} {naipe}"
         deck.append(card)
         
 
@@ -37,52 +37,72 @@ for naipe in listanaipe:
 random.shuffle(deck)
 
 
-#Distribuição de Cartas
+#numero jogadores
 
 numerojogador = int(input("digite o numero de jogadores(2 a 8):"))
 
 while numerojogador < 2 or numerojogador > 8:
     numerojogador = int(input("digite o numero de jogadores(2 a 8):"))
     
-for i in range (1, numerojogador+1):
-    jogadores.append([])
+
 
 
 
 # distrubuir cartas para jogadores
-while sel <= numerojogador:
-    
-    if numerocard == numerojogador*2:
-        break
-    if sel == 1:
-        jogadores[0].append(deck[numerocard])
-    
-    elif sel == 2:
-        jogadores[1].append(deck[numerocard])
-        
-    elif sel == 3:
-        jogadores[2].append(deck[numerocard])
-        
-    elif sel == 4:
-        jogadores[3].append(deck[numerocard])
-        
-    elif sel == 5:
-        jogadores[4].append(deck[numerocard])
-        
-    elif sel == 6:
-        jogadores[5].append(deck[numerocard])
-        
-    elif sel == 7:
-        jogadores[6].append(deck[numerocard])
-       
-    elif sel == 8:
-        jogadores[7].append(deck[numerocard])
-    
-    if sel == numerojogador:
-        sel = 0
 
-    numerocard += 1    
-    sel += 1
+for i in range(0,numerojogador):
+    
+    if i == 0:
+        nome = "Player 1"
+        card1 = deck[numerocard]
+        card2 = deck[numerocard+1]
+        player = jogador(nome, card1, card2)
+        
+    elif i == 1:
+        nome = "Player 2"
+        card1 = deck[numerocard]
+        card2 = deck[numerocard+1]
+        player = jogador(nome, card1, card2)
+        
+    elif i == 2:
+        nome = "Player 3"
+        card1 = deck[numerocard]
+        card2 = deck[numerocard+1]
+        player = jogador(nome, card1, card2)
+        
+    elif i == 3:
+        nome = "Player 4"
+        card1 = deck[numerocard]
+        card2 = deck[numerocard+1]
+        player = jogador(nome, card1, card2)
+        
+    elif i == 4:
+        nome = "Player 5"
+        card1 = deck[numerocard]
+        card2 = deck[numerocard+1]
+        player = jogador(nome, card1, card2)
+        
+    elif i == 5:
+        nome = "Player 6"
+        card1 = deck[numerocard]
+        card2 = deck[numerocard+1]
+        player = jogador(nome, card1, card2)
+        
+    elif i == 6:
+        nome = "Player 7"
+        card1 = deck[numerocard]
+        card2 = deck[numerocard+1]
+        player = jogador(nome, card1, card2)
+        
+    elif i == 7:
+        nome = "Player 8"
+        card1 = deck[numerocard]
+        card2 = deck[numerocard+1]
+        player = jogador(nome, card1, card2)
+    
+    jogadores.append(player)
+    numerocard += 2
+
 
 #distribuir cartas para a mesa
 for j in range(0,5):
@@ -90,12 +110,21 @@ for j in range(0,5):
     mesa.append(deck[numerocard])
 
 
+for x in jogadores:
+    jogadoresativos.append(x.getnome())
 
-for x,y in enumerate(jogadores):
-    print("jogador {}:".format(x+1))
-    for z in y:
-        z.imprimemao()
+for rodada in fases:
+    
+    if rodada == "Preflop":
+        fim = False
         
-print("Mesa: ")
-for q in mesa:
-    q.imprimemao()
+        
+    if rodada == "Flop":
+        print(rodada)
+        
+    if rodada == "Turn":
+        print(rodada)
+        
+    if rodada == "River":
+        print(rodada)
+
