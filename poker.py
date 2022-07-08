@@ -7,6 +7,7 @@ class jogador:
         self.card2 = card2
         self.carteira = 300
         self.aposta = 0
+   
     def getnome(self):
         return self.nome
     
@@ -25,6 +26,13 @@ class jogador:
     def bet(self, bet):
         self.carteira = self.carteira - bet
         self.aposta = self.aposta + bet
+        
+    def imprimemao(self):
+        print(self.card1)
+        print(self.card2)
+        
+    def venceu(self, pote):
+        self.carteira = self.carteira + pote
     
 #Declaração de Variaveis
 
@@ -37,6 +45,7 @@ mesa = []
 fases = ["Preflop", "Flop", "Turn", "River"]
 jogadoresativos = []
 pote = 0
+visualizar = True
 #Criação de Deck
 
 for naipe in listanaipe:
@@ -122,10 +131,26 @@ for j in range(0,5):
     numerocard += 1
     mesa.append(deck[numerocard])
 
-
+#lista de jogadores ativos
 for x in jogadores:
     jogadoresativos.append(x.getnome())
 
+#Ver cartas de cada Jogador
+while visualizar == True:
+    search = input("Digite o nome do jogador que deseja ver a mão ou 0 para sair: ")  
+    if search == '0':
+        visualizar = False
+        
+    else:
+        for k in jogadores:
+            if k.getnome() == search:
+                k.imprimemao()
+        
+        
+        
+        
+        
+#Rodada de Apostas
 for rodada in fases:
     
     if rodada == "Preflop":
@@ -390,3 +415,18 @@ for rodada in fases:
         pote = 0
         for k in jogadores:
             pote += k.getaposta()
+
+
+#Print Final de todos os Resultados
+print(mesa)
+for g in jogadores:
+    for h in jogadoresativos:
+        if g.getnome() == h:
+            print(g.getnome())
+            g.imprimemao()
+
+#Escolha do Vencedor            
+vencedor = input("Digite o nome do Vencedor: ")
+for g in jogadores:
+    if g.getnome() == vencedor:
+        g.venceu(pote)
