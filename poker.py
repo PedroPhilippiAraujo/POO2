@@ -5,7 +5,8 @@ class jogador:
         self.nome = nome
         self.card1 = card1
         self.card2 = card2
-            
+        self.carteira = 300
+        self.aposta = 0
     def getnome(self):
         return self.nome
     
@@ -14,6 +15,17 @@ class jogador:
     
     def getcard2(self):
         return self.card2
+    
+    def getcarteira(self):
+        return self.carteira
+    
+    def getaposta(self):
+        return self.aposta
+    
+    def bet(self, bet):
+        self.carteira = self.carteira - bet
+        self.aposta = self.aposta + bet
+    
 #Declaração de Variaveis
 
 numerocard = 0
@@ -24,6 +36,7 @@ jogadores = []
 mesa = []
 fases = ["Preflop", "Flop", "Turn", "River"]
 jogadoresativos = []
+pote = 0
 #Criação de Deck
 
 for naipe in listanaipe:
@@ -39,10 +52,10 @@ random.shuffle(deck)
 
 #numero jogadores
 
-numerojogador = int(input("digite o numero de jogadores(2 a 8):"))
+numerojogador = int(input("digite o numero de jogadores(2 a 8): "))
 
 while numerojogador < 2 or numerojogador > 8:
-    numerojogador = int(input("digite o numero de jogadores(2 a 8):"))
+    numerojogador = int(input("digite o numero de jogadores(2 a 8): "))
     
 
 
@@ -116,15 +129,264 @@ for x in jogadores:
 for rodada in fases:
     
     if rodada == "Preflop":
+        print (rodada)
         fim = False
+        check = 10
+        while fim == False:
+            for k in jogadores:
+                for l in jogadoresativos:
+                    if k.getnome() == l:
+                        print(l,":")
+                        print("Check: ",check)
+                        print("Aposta: ",k.getaposta())
+                        print("O que você deseja fazer?")
+                    
+                        if k.getaposta() < check:
+                            print("1-Call")
+                            print("2-Raise")
+                            print("3 - Fold")
+                            sel = int(input())
+                        
+                            if sel == 1:
+                                k.bet(check-k.getaposta())
+                            
+                            elif sel == 2:
+                                print("Digite o quanto deseja aumentar: ")
+                                print("1-{} / 2-{} / 3-{} / 4-{} / 5- {} / 6 - All In".format(check*2, check*4, check*6, check*8, check*10))
+                                choice = int(input())
+                                if choice >= 1 and choice <= 5:
+                                    k.bet(check*choice*2)
+                                elif choice == 6:
+                                    k.bet(k.getcarteira())
+                                check = k.getaposta()
+                            
+                            elif sel == 3:
+                                jogadoresativos.remove(l)
+                                    
+                        elif k.getaposta() == check:
+                            print("1-check")
+                            print("2-Raise")
+                            sel = int(input())
+                            
+                            if sel == 2:
+                                print("Digite o quanto deseja aumentar: ")
+                                print("1-{} / 2-{} / 3-{} / 4-{} / 5- {} / 6 - All In".format(check*2, check*4, check*6, check*8, check*10))
+                                choice = int(input())
+                                if choice >= 1 and choice <= 5:
+                                    k.bet(check*choice*2)
+                                elif choice == 6:
+                                    k.bet(k.getcarteira())
+                                check = k.getaposta()
         
         
-    if rodada == "Flop":
+        
+            fim = True
+            for k in jogadores:
+                for l in jogadoresativos:
+                    if k.getnome() == l:
+                        if k.getaposta() < check:
+                            fim = False
+        
+        for k in jogadores:
+            pote += k.getaposta()
+        
+        
+    elif rodada == "Flop":
         print(rodada)
+        print("Pote: ",pote)
+        print("Cartas na Mesa")
+        print(mesa[0:3])
+        fim = False
+        check = 0
+        while fim == False:
+            for k in jogadores:
+                for l in jogadoresativos:
+                    if k.getnome() == l:
+                        print(l,":")
+                        print("Check: ",check)
+                        print("Aposta: ",k.getaposta())
+                        print("O que você deseja fazer?")
+                    
+                        if k.getaposta() < check:
+                            print("1-Call")
+                            print("2-Raise")
+                            print("3 - Fold")
+                            sel = int(input())
+                        
+                            if sel == 1:
+                                k.bet(check-k.getaposta())
+                            
+                            elif sel == 2:
+                                print("Digite o quanto deseja aumentar: ")
+                                print("1-{} / 2-{} / 3-{} / 4-{} / 5- {} / 6 - All In".format(check*2, check*4, check*6, check*8, check*10))
+                                choice = int(input())
+                                if choice >= 1 and choice <= 5:
+                                    k.bet(check*choice*2)
+                                elif choice == 6:
+                                    k.bet(k.getcarteira())
+                                check = k.getaposta()
+                            
+                            elif sel == 3:
+                                jogadoresativos.remove(l)
+                                    
+                        elif k.getaposta() == check or check == 0:
+                            print("1-check")
+                            print("2-Raise")
+                            sel = int(input())
+                            
+                            if sel == 2:
+                                print("Digite o quanto deseja aumentar: ")
+                                print("1-{} / 2-{} / 3-{} / 4-{} / 5- {} / 6 - All In".format(check*2, check*4, check*6, check*8, check*10))
+                                choice = int(input())
+                                if choice >= 1 and choice <= 5:
+                                    k.bet(check*choice*2)
+                                elif choice == 6:
+                                    k.bet(k.getcarteira())
+                                check = k.getaposta()
         
-    if rodada == "Turn":
-        print(rodada)
         
-    if rodada == "River":
+        
+            fim = True
+            for k in jogadores:
+                for l in jogadoresativos:
+                    if k.getnome() == l:
+                        if k.getaposta() < check:
+                            fim = False
+        
+        pote = 0
+        for k in jogadores:
+            pote += k.getaposta()
+            
+            
+    elif rodada == "Turn":
         print(rodada)
-
+        print("Pote: ",pote)
+        print("Cartas na Mesa")
+        print(mesa[0:4])
+        fim = False
+        check = 0
+        while fim == False:
+            for k in jogadores:
+                for l in jogadoresativos:
+                    if k.getnome() == l:
+                        print(l,":")
+                        print("Check: ",check)
+                        print("Aposta: ",k.getaposta())
+                        print("O que você deseja fazer?")
+                    
+                        if k.getaposta() < check:
+                            print("1-Call")
+                            print("2-Raise")
+                            print("3 - Fold")
+                            sel = int(input())
+                        
+                            if sel == 1:
+                                k.bet(check-k.getaposta())
+                            
+                            elif sel == 2:
+                                print("Digite o quanto deseja aumentar: ")
+                                print("1-{} / 2-{} / 3-{} / 4-{} / 5- {} / 6 - All In".format(check*2, check*4, check*6, check*8, check*10))
+                                choice = int(input())
+                                if choice >= 1 and choice <= 5:
+                                    k.bet(check*choice*2)
+                                elif choice == 6:
+                                    k.bet(k.getcarteira())
+                                check = k.getaposta()
+                            
+                            elif sel == 3:
+                                jogadoresativos.remove(l)
+                                    
+                        elif k.getaposta() == check or check == 0:
+                            print("1-check")
+                            print("2-Raise")
+                            sel = int(input())
+                            
+                            if sel == 2:
+                                print("Digite o quanto deseja aumentar: ")
+                                print("1-{} / 2-{} / 3-{} / 4-{} / 5- {} / 6 - All In".format(check*2, check*4, check*6, check*8, check*10))
+                                choice = int(input())
+                                if choice >= 1 and choice <= 5:
+                                    k.bet(check*choice*2)
+                                elif choice == 6:
+                                    k.bet(k.getcarteira())
+                                check = k.getaposta()
+        
+        
+        
+            fim = True
+            for k in jogadores:
+                for l in jogadoresativos:
+                    if k.getnome() == l:
+                        if k.getaposta() < check:
+                            fim = False
+        
+        pote = 0
+        for k in jogadores:
+            pote += k.getaposta()
+            
+            
+    elif rodada == "River":
+        print(rodada)
+        print("Pote: ",pote)
+        print("Cartas na Mesa")
+        print(mesa[0:5])
+        fim = False
+        check = 0
+        while fim == False:
+            for k in jogadores:
+                for l in jogadoresativos:
+                    if k.getnome() == l:
+                        print(l,":")
+                        print("Check: ",check)
+                        print("Aposta: ",k.getaposta())
+                        print("O que você deseja fazer?")
+                    
+                        if k.getaposta() < check:
+                            print("1-Call")
+                            print("2-Raise")
+                            print("3 - Fold")
+                            sel = int(input())
+                        
+                            if sel == 1:
+                                k.bet(check-k.getaposta())
+                            
+                            elif sel == 2:
+                                print("Digite o quanto deseja aumentar: ")
+                                print("1-{} / 2-{} / 3-{} / 4-{} / 5- {} / 6 - All In".format(check*2, check*4, check*6, check*8, check*10))
+                                choice = int(input())
+                                if choice >= 1 and choice <= 5:
+                                    k.bet(check*choice*2)
+                                elif choice == 6:
+                                    k.bet(k.getcarteira())
+                                check = k.getaposta()
+                            
+                            elif sel == 3:
+                                jogadoresativos.remove(l)
+                                    
+                        elif k.getaposta() == check or check == 0:
+                            print("1-check")
+                            print("2-Raise")
+                            sel = int(input())
+                            
+                            if sel == 2:
+                                print("Digite o quanto deseja aumentar: ")
+                                print("1-{} / 2-{} / 3-{} / 4-{} / 5- {} / 6 - All In".format(check*2, check*4, check*6, check*8, check*10))
+                                choice = int(input())
+                                if choice >= 1 and choice <= 5:
+                                    k.bet(check*choice*2)
+                                elif choice == 6:
+                                    k.bet(k.getcarteira())
+                                check = k.getaposta()
+        
+        
+        
+            fim = True
+            for k in jogadores:
+                for l in jogadoresativos:
+                    if k.getnome() == l:
+                        if k.getaposta() < check:
+                            fim = False
+        
+        pote = 0
+        for k in jogadores:
+            pote += k.getaposta()
