@@ -69,49 +69,49 @@ while numerojogador < 2 or numerojogador > 8:
 for i in range(0,numerojogador):
     
     if i == 0:
-        nome = "Player 1"
+        nome = input("Digite o nome do jogador 1: ")
         card1 = deck[numerocard]
         card2 = deck[numerocard+1]
         player = jogador(nome, card1, card2)
         
     elif i == 1:
-        nome = "Player 2"
+        nome = input("Digite o nome do jogador 2: ")
         card1 = deck[numerocard]
         card2 = deck[numerocard+1]
         player = jogador(nome, card1, card2)
         
     elif i == 2:
-        nome = "Player 3"
+        nome = input("Digite o nome do jogador 3: ")
         card1 = deck[numerocard]
         card2 = deck[numerocard+1]
         player = jogador(nome, card1, card2)
         
     elif i == 3:
-        nome = "Player 4"
+        nome = input("Digite o nome do jogador 4: ")
         card1 = deck[numerocard]
         card2 = deck[numerocard+1]
         player = jogador(nome, card1, card2)
         
     elif i == 4:
-        nome = "Player 5"
+        nome = input("Digite o nome do jogador 5: ")
         card1 = deck[numerocard]
         card2 = deck[numerocard+1]
         player = jogador(nome, card1, card2)
         
     elif i == 5:
-        nome = "Player 6"
+        nome = input("Digite o nome do jogador 6: ")
         card1 = deck[numerocard]
         card2 = deck[numerocard+1]
         player = jogador(nome, card1, card2)
         
     elif i == 6:
-        nome = "Player 7"
+        nome = input("Digite o nome do jogador 7: ")
         card1 = deck[numerocard]
         card2 = deck[numerocard+1]
         player = jogador(nome, card1, card2)
         
     elif i == 7:
-        nome = "Player 8"
+        nome = input("Digite o nome do jogador 8: ")
         card1 = deck[numerocard]
         card2 = deck[numerocard+1]
         player = jogador(nome, card1, card2)
@@ -424,3 +424,6 @@ vencedor = input("Digite o nome do Vencedor: ")
 for g in jogadores:
     if g.getnome() == vencedor:
         g.venceu(pote)
+        print(f"Parabéns {vencedor}")
+        print(f"Você ganhou {pote}")
+        print("Balanço Final: ", g.getcarteira())
