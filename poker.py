@@ -11,12 +11,6 @@ class jogador:
     def getnome(self):
         return self.nome
     
-    def getcard1(self):
-        return self.card1
-    
-    def getcard2(self):
-        return self.card2
-    
     def getcarteira(self):
         return self.carteira
     
